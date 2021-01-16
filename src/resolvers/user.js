@@ -23,28 +23,18 @@ const userTypeDefs = `
   // The resolvers
  const userResolvers = {
     Query: { 
-        users:(root , args , { models , auth} )=>{
-            console.log(auth.payload)
-            if(!auth.payload){
-                throw new Error("no logueado");
-            }
-            return [{
-                name:"isaac",
-                email:"isaac@",
-                password:"1234", 
-                createdAt :"String",
-                active:"Boolean",
-                role:"String",
-            },
-            {
-                name:"joana"
-                ,email:"joana@",
-                password:"5678",
-                createdAt :"String",
-                active:"Boolean",
-                role:"String"
-            }
-        ]
+        users:async (root , args , { models , auth} )=>{
+            // console.log(auth.payload)
+            // if(!auth.payload){
+            //     throw new Error("no logueado");
+            // }
+
+        let users = await models.user.findAll();
+
+
+
+            return users
+        
     },
         user: () => {
             return {
