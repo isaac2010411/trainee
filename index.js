@@ -17,8 +17,6 @@ const { Auth } = require('./src/auth');
 const app = express();
 app.use(cors());
 
-const publicPath = path.join(__dirname,'build');
-
 const PORT = process.env.PORT || 4000 ;
 const CLIENTPORT =process.env.PORT || 3000
 const server = express();
@@ -50,9 +48,6 @@ server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
   subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
 }));
-server.get('*', (req, res) => {    
-    res.sendFile(path.join(publicPath , 'index.html'));
- });
 
 // Wrap the Express server
 const ws = createServer(server);
