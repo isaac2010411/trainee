@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "ISC", 
   "dependencies": {
     "apollo-server": "^2.19.1",
     "apollo-server-express": "^1.4.0",

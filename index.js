@@ -19,8 +19,8 @@ app.use(cors());
 
 const publicPath = path.join(__dirname,'build');
 
-const PORT = 4000;
-const CLIENTPORT = 3000
+const PORT = process.env.PORT || 4000 ;
+const CLIENTPORT =process.env.PORT || 3000
 const server = express();
 
 server.use('*', cors({ 
