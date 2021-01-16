@@ -11,10 +11,12 @@ const verifyOptions = {
 };
 
 passport.use(
-  new JwtStrategy(verifyOptions, (payload, done) => done(null, payload))
+  new JwtStrategy(verifyOptions, (payload, done) => {
+    return done(null, payload)
+  })
 );
 
-exports.createJwt = payload =>
+exports.createJwt = payload => 
   jwt.sign(payload, JWT_SECRET, {
     algorithm: 'HS256',
     audience: verifyOptions.audience,
@@ -24,7 +26,6 @@ exports.createJwt = payload =>
 exports.authenticate = (req, res) =>
   new Promise((resolve, reject) => {
     passport.authenticate('jwt', (err, payload) => {
-      console.log(payload)
       if (err) reject(err);
       resolve(payload);
     })(req, res);

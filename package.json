@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon index.js"
+    "watch": "nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,12 +14,15 @@
   "dependencies": {
     "apollo-server": "^2.19.1",
     "apollo-server-express": "^1.4.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "graphql-middleware": "^6.0.1",
+    "graphql-shield": "^7.4.4",
     "graphql-tools": "^7.0.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",

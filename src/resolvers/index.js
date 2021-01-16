@@ -6,16 +6,34 @@ const {
   userTypeDefs
 } = require('./user');
 
+//type defs and resolvers
+const { 
+  userAuthResolvers,
+  userAuthTypeDefs
+} = require('./auth');
+const { profileTypeDef, profileResolvers } = require("./profile");
+
 
   // The GraphQL schema in string form
   const typeDefs = `
     type Query { 
         user:User!
         users:[User]
+        me: RegisterPayload!
+        profile:Profile!
     }
 
     type Mutation{
-      createUser(input : InputCreateUser ):User!
+      createUser(input : InputCreateUser ):Boolean!
+      registerUser(input: RegisterUserInput): Boolean!
+      
+      login(input: LoginInput): LoginPayload!
+      loginWithSocial(input: LoginWithSocialInput): LoginPayload!
+      logout: Boolean!
+      requestPasswordReset(input: RequestPasswordResetInput): Boolean!
+      verifyPasswordReset(input: VerifyPasswordResetInput): VerifyPasswordResetPayload!
+      resetPassword(input: ResetPasswordInput): Boolean!
+      updateProfile(input:UpdateProfileInput):Profile!
     }
   `;
   
@@ -23,11 +41,15 @@ const {
   module.exports = {
       typeDefs:[
           typeDefs,
-          userTypeDefs
+          userTypeDefs,
+          userAuthTypeDefs,
+          profileTypeDef
       ],
       resolvers :merge(
         //   resolvers,
-          userResolvers
+          userResolvers,
+          userAuthResolvers,
+          profileResolvers
       )
   };
   

@@ -1,5 +1,5 @@
-import { authenticate, createJwt } from "./passport";
-import models from "../models";
+const { authenticate, createJwt } =require("./passport") ;
+
 const ON_HTTPS = false;
 
 const ONE_MINUTE = 1000 * 60;
@@ -16,8 +16,7 @@ class Auth {
   }
 
   async authenticate() {
-    const { req, res } = this;
-
+    const { req , res } = this;
     const payload = await authenticate(req, res);
     if (payload) {
       this.payload = payload;
@@ -40,4 +39,7 @@ class Auth {
   }
 }
 
-export default Auth; 
+module.exports = {
+  Auth
+};
+ 

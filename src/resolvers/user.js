@@ -14,18 +14,20 @@ const userTypeDefs = `
         name: String! 
         email:String!
         password:String!
-        createdAt :String!
-        active:String!
-        role:String!
+        createdAt :String
+        active:String
+        role:String
     }
 `;
 
   // The resolvers
  const userResolvers = {
     Query: { 
-        users:(root , { input } , {headers , models} )=>{
-            console.log(headers)
-            console.log(models)
+        users:(root , args , { models , auth} )=>{
+            console.log(auth.payload)
+            if(!auth.payload){
+                throw new Error("no logueado");
+            }
             return [{
                 name:"isaac",
                 email:"isaac@",
@@ -57,18 +59,20 @@ const userTypeDefs = `
 
     },
     Mutation:{
-        createUser:(root , { input } , context  )=>{
-            let { name , email } = input;
-            console.log(context)
-            console.log(name , email);
-            return {
-                name:"isaac",
-                email:"isaac@",
-                password:"1234",
-                createdAt :"String",
-                active:"Boolean",
-                role:"String"
-            }
+        createUser:async (parent , {input},{models}  )=>{
+            // let { name , email } = input;
+            // console.log(context)
+            console.log(input);
+            let user = await models.user.create({
+                name:input.name,
+                email:input.email,
+                password:input.password,
+                active:0,
+                createdAt:new Date(),
+                role:"normal"
+            })
+
+            return true
         }
     }
 };
