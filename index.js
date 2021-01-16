@@ -29,9 +29,6 @@ server.use('*', cors({
     })
 ); 
 
-server.get('*', (req, res) => {    
-    res.sendFile(path.join(publicPath , 'index.html'));
- });
 
 server.use('/graphql',
  bodyParser.json(), 
@@ -53,6 +50,9 @@ server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
   subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
 }));
+server.get('*', (req, res) => {    
+    res.sendFile(path.join(publicPath , 'index.html'));
+ });
 
 // Wrap the Express server
 const ws = createServer(server);
