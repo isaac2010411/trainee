@@ -22,7 +22,7 @@ const CLIENTPORT =process.env.PORT || 3000
 const server = express();
 server.use(express.static(publicPath));
 
-app.use('*', cors(
+server.use('*', cors(
     // { 
     // origin: `http://localhost:${CLIENTPORT}` ,
     // credentials:true
