@@ -23,7 +23,7 @@ const server = express();
 server.use(express.static(publicPath));
 
 server.use('*', cors({ 
-    origin: `http://localhost:${CLIENTPORT}` ,
+    origin: `https://traineetest.herokuapp.com/${CLIENTPORT}` ,
     credentials:true
     })
 ); 
