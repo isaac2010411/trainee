@@ -22,11 +22,11 @@ const CLIENTPORT =process.env.PORT || 3000
 const server = express();
 server.use(express.static(publicPath));
 
-// server.use('*', cors({ 
-//     origin: `https://traineetest.herokuapp.com/${CLIENTPORT}` ,
-//     credentials:true
-//     })
-// ); 
+server.use('*', cors({ 
+    origin: `https://traineetest.herokuapp.com/` ,
+    credentials:true
+    })
+); 
 
 
 server.use('/graphql',
