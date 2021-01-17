@@ -22,7 +22,13 @@ const CLIENTPORT =process.env.PORT || 3000
 const server = express();
 server.use(express.static(publicPath));
 
-server.use('*', cors()); 
+app.use('*', cors(
+    // { 
+    // origin: `http://localhost:${CLIENTPORT}` ,
+    // credentials:true
+    // }
+    )
+); 
 
 
 server.use('/graphql',
