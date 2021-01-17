@@ -81,10 +81,11 @@ const userAuthResolvers = {
       return true;
     },
     login: async (parent, { input }, { models , auth }, info) => {
-
+      
       const user = await models.user.findOne({
         where: { email: input.email },
       });
+     
       if (!user) {
         throw Error("No user found");
       }
