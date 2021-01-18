@@ -30,10 +30,7 @@ const userTypeDefs = `
             // }
 
         let users = await models.user.findAll();
-
-
-
-            return users
+        return users;
         
     },
         user: () => {

@@ -17,10 +17,13 @@ const { Auth } = require('./src/auth');
 const app = express();
 app.use(cors());
 
+
+
 const PORT = process.env.PORT || 4000 ;
 const CLIENTPORT =process.env.PORT || 3000
 const server = express();
 server.use(express.static(publicPath));
+
 
 server.use('*', cors({credentials:false}
     // { 

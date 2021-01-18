@@ -33,7 +33,7 @@ const profileResolvers = {
           id: auth.getUserId(),
         },
       });
-
+      console.log(user)
       return user;
     },
   },
