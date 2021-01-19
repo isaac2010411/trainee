@@ -16,20 +16,19 @@ const { Auth } = require('./src/auth');
 // Initialize the app
 const app = express();
 app.use(cors(
-    // {credentials:false}
-    ));
+    {credentials:false}));
 const PORT = process.env.PORT || 4000 ;
 const CLIENTPORT =process.env.PORT || 3000
 const server = express();
 server.use(express.static(publicPath));
 
 
- server.use('*', cors(
-    { 
-        origin: `http://localhost:${PORT}` ,
-        credentials:true
-    }
-     )
+server.use('*', cors(
+    // { 
+    //     origin: `http://localhost:${PORT}` ,
+    //     credentials:true
+    // }
+    )
 ); 
 
 
@@ -56,7 +55,8 @@ server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
   subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
 }));
-server.get('*',cors(), (req, res) => {    
+
+server.get('*', (req, res) => {    
     console.log(req.headers)
     res.sendFile(path.join(publicPath , 'index.html'));
  });
@@ -79,6 +79,7 @@ Promise.all(promises).then(() => {
             execute,
             subscribe,
             schema,
+        
             onConnect: (connectionParams, webSocket) => {
                 if (connectionParams.authToken) {
                     // return validateToken(connectionParams.authToken)
