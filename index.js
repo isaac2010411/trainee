@@ -15,7 +15,7 @@ const { Auth } = require('./src/auth');
 
 // Initialize the app
 const app = express();
-app.use(cors({credentials:false}));
+app.use(cors());
 
 
 
@@ -25,10 +25,12 @@ const server = express();
 server.use(express.static(publicPath));
 
 
-server.use('*', cors({ 
-        origin: `http://localhost:${CLIENTPORT}` ,
-        credentials:true
-    })
+server.use('*', cors(
+    // { 
+    //     origin: `http://localhost:${CLIENTPORT}` ,
+    //     credentials:true
+    // }
+    )
 ); 
 
 
@@ -36,7 +38,7 @@ server.use('/graphql',
  bodyParser.json(), 
  graphqlExpress(async (req , res )=>{
     console.log(req.headers);
-    
+
     let auth = new Auth({req,res});
     await auth.authenticate();
      
