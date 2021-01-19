@@ -15,23 +15,24 @@ const { Auth } = require('./src/auth');
 
 // Initialize the app
 const app = express();
-app.use(cors());
-
-
-
+app.use(cors(
+    // {credentials:false}
+    ));
 const PORT = process.env.PORT || 4000 ;
 const CLIENTPORT =process.env.PORT || 3000
 const server = express();
 server.use(express.static(publicPath));
 
 
-server.use('*', cors(
-    // { 
-    //     origin: `http://localhost:${CLIENTPORT}` ,
-    //     credentials:true
-    // }
-    )
+ server.use('*', cors(
+    { 
+        origin: `https://traineetest.herokuapp.com:${PORT}` ,
+        credentials:true
+    }
+     )
 ); 
+
+
 
 
 server.use('/graphql',
@@ -53,11 +54,10 @@ server.use('/graphql',
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
-  subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
+  subscriptionsEndpoint: `ws://traineetest.herokuapp.com/singin:${PORT}/subscriptions`,
 }));
-
-server.get('*', (req, res) => {    
-    console.log(req)
+server.get('*',cors(), (req, res) => {    
+    console.log(req.headers)
     res.sendFile(path.join(publicPath , 'index.html'));
  });
 
