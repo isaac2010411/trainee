@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { execute, subscribe } =require('graphql') ;
+const { execute, subscribe} =require('graphql') ;
 const { createServer } =require('http') ;
 const { SubscriptionServer } =require('subscriptions-transport-ws') ;
 const {schema} = require('./src/schema');
@@ -15,7 +15,7 @@ const { Auth } = require('./src/auth');
 
 // Initialize the app
 const app = express();
-app.use(cors());
+app.use(cors({credentials:false}));
 
 
 
@@ -25,19 +25,18 @@ const server = express();
 server.use(express.static(publicPath));
 
 
-server.use('*', cors({credentials:false}
-    // { 
-    // origin: `http://localhost:${CLIENTPORT}` ,
-    // credentials:true
-    // }
-    )
+server.use('*', cors({ 
+        origin: `http://localhost:${CLIENTPORT}` ,
+        credentials:true
+    })
 ); 
 
 
 server.use('/graphql',
  bodyParser.json(), 
  graphqlExpress(async (req , res )=>{
-
+    console.log(req.headers);
+    
     let auth = new Auth({req,res});
     await auth.authenticate();
      
@@ -56,6 +55,7 @@ server.use('/graphiql', graphiqlExpress({
 }));
 
 server.get('*', (req, res) => {    
+    console.log(req)
     res.sendFile(path.join(publicPath , 'index.html'));
  });
 
