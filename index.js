@@ -26,7 +26,7 @@ server.use(express.static(publicPath));
 
  server.use('*', cors(
     { 
-        origin: `http://localhost:${PORT}` ,
+        origin: `https://traineetest.herokuapp.com:${PORT}` ,
         credentials:true
     }
      )
@@ -54,7 +54,7 @@ server.use('/graphql',
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
-  subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
+  subscriptionsEndpoint: `ws:https://traineetest.herokuapp.com:${PORT}/subscriptions`,
 }));
 server.get('*',cors(), (req, res) => {    
     console.log(req.headers)
