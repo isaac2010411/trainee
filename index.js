@@ -54,7 +54,7 @@ server.use('/graphql',
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
-  subscriptionsEndpoint: `ws:https://traineetest.herokuapp.com:${PORT}/subscriptions`,
+  subscriptionsEndpoint: `ws://https://traineetest.herokuapp.com:${PORT}/subscriptions`,
 }));
 server.get('*',cors(), (req, res) => {    
     console.log(req.headers)
