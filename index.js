@@ -27,7 +27,7 @@ server.use(express.static(publicPath));
 
 server.use('*', cors(
    { 
-   origin: `http://localhost:${CLIENTPORT}` ,
+   origin: `https://traineetest.herokuapp.com:${CLIENTPORT}` ,
    credentials:true
    }
     )
@@ -52,7 +52,7 @@ server.use('/graphql',
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
-  subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
+  subscriptionsEndpoint: `ws://https://traineetest.herokuapp.com:${PORT}/graphql/subscriptions`,
 }));
 
 server.get('*', (req, res) => {    
@@ -71,7 +71,7 @@ if (process.env.NODE_ENV === "development") {
 
 Promise.all(promises).then(() => {
     ws.listen(PORT, () => {
-    console.log(`Apollo Server is now running on http://localhost:${PORT}`);
+    console.log(`Apollo Server is now running on https://traineetest.herokuapp.com:${PORT}`);
     // Set up the WebSocket for handling GraphQL subscriptions
         let wsServer = new SubscriptionServer({
             execute,
@@ -95,7 +95,7 @@ Promise.all(promises).then(() => {
             server: ws,
             // path: '/subscriptions',
         });
-        console.log(`Apollo Server subscriptions is now running on ws://localhost:${PORT}/subscriptions`)
+        console.log(`Apollo Server subscriptions is now running on ws://https://traineetest.herokuapp.com/:${PORT}/subscriptions`)
     })
    
 });
